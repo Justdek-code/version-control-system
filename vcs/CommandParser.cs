@@ -9,13 +9,13 @@ namespace vcs
     {
         private Command _command;
         private string[] _input;
-        private string _callDirectory;
+        private CallDirectory _callDirectory;
 
 
-        public CommandParser( CurrentDirectory callDirectory, string[] input)
+        public CommandParser(CallDirectory callDirectory, string[] input)
         {
             _input = input;
-            _callDirectory = callDirectory.GetContent();
+            _callDirectory = callDirectory;
 
             Parse();
         }

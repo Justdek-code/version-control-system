@@ -6,21 +6,24 @@ namespace vcs
 {
     public class Init
     {
-        private string _callDirectory;
+        private CallDirectory _callDirectory;
 
-        public Init(string callDirectory)
+        public Init(CallDirectory callDirectory)
         {
             _callDirectory = callDirectory;
         }
 
         public void Execute()
         {
-            string path = _callDirectory + "\\.repo";
+           
 
-            if (!Directory.Exists(path))
-            {
+            if (!_callDirectory.IsUnderVersionControl())
+            { 
+                Path directoryPath = _callDirectory.GetPath();
+                string path = directoryPath.GetContent() + "\\.repo";
+
                 CreateRepository(path);
-                Console.WriteLine("The repository is successfully created");
+                Console.WriteLine($"The repository is successfully created in {directoryPath.GetContent()}");
             }
             else
             {

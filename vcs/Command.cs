@@ -9,10 +9,10 @@ namespace vcs
     {
         public string CommandName;
         public List<string> Properties;
-        public string CallDirectory;
+        public CallDirectory CallDirectory;
 
 
-        public Command(string command, List<string> properties, string callDirectory)
+        public Command(string command, List<string> properties, CallDirectory callDirectory)
         {
             CommandName = command;
             Properties = properties;

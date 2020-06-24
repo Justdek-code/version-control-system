@@ -10,10 +10,12 @@ namespace vcs
         static void Main(string[] args)
         {
 
+            string[] input = { "init" };
+
             new Executor(
                 new CommandParser(     
-                    new CurrentDirectory(),
-                    args
+                    new CallDirectory(),
+                    input
                 )
             ).Run();
             
