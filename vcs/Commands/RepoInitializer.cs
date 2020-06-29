@@ -2,27 +2,28 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 
-namespace vcs
+namespace vcs.Commands
 {
-    public class Init
+    // vcs init
+    public class RepoInitializer
     {
-        private CallDirectory _callDirectory;
+        private Command _command;
 
-        public Init(CallDirectory callDirectory)
+        public RepoInitializer(Command command)
         {
-            _callDirectory = callDirectory;
+            _command = command;
         }
 
         public void Execute()
         {
-           
+            CallDirectory callDirectory = _command.CallDirectory;
 
-            if (!_callDirectory.IsUnderVersionControl())
+            if (!callDirectory.IsUnderVersionControl())
             { 
-                Path directoryPath = _callDirectory.GetPath();
+                Path directoryPath = callDirectory.GetPath();
                 string path = directoryPath.GetContent() + "\\.repo";
 
-                CreateRepository(path);
+                InitializeRepository(path);
                 Console.WriteLine($"The repository is successfully created in {directoryPath.GetContent()}");
             }
             else
@@ -31,7 +32,7 @@ namespace vcs
             }
         }
 
-        private void CreateRepository(string path)
+        private void InitializeRepository(string path)
         {
             DirectoryInfo directory = Directory.CreateDirectory(path); 
             directory.Attributes = FileAttributes.Directory | FileAttributes.Hidden; 
@@ -39,6 +40,8 @@ namespace vcs
             Directory.CreateDirectory(path + "\\objects");
             Directory.CreateDirectory(path + "\\references");
             Directory.CreateDirectory(path + "\\commits");
+
+            using (FileStream fileStream = File.Create(path + "\\index")) {}
         }
     }
 }

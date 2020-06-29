@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using vcs.Commands;
 
 
 namespace vcs
@@ -16,7 +17,7 @@ namespace vcs
 
         public void Run()
         {
-            if (_command.CommandName == "init") new Init(_command.CallDirectory).Execute(); 
+            if (_command.CommandName == "init") new RepoInitializer(_command).Execute(); 
         }
     }
 }

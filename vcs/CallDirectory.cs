@@ -24,6 +24,18 @@ namespace vcs
 
         public bool IsUnderVersionControl()
         {
+            Path repositryPath = FindRepositoryRoot();
+
+            if (repositryPath.GetContent() == String.Empty)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public Path FindRepositoryRoot()
+        {
             Path tempPath = new Path(_path.GetContent());
 
             while (!tempPath.IsEmpty())
@@ -32,13 +44,13 @@ namespace vcs
 
                 if (Directory.Exists(searchingDirectory))
                 {
-                    return true;
+                    return new Path(searchingDirectory);
                 }
 
                 tempPath = tempPath.GetUpperDirectory();
             }
 
-            return false;
+            return new Path(String.Empty);
         }
     }
 }

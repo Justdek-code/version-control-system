@@ -17,7 +17,7 @@ namespace vcs
             _input = input;
             _callDirectory = callDirectory;
 
-            Parse();
+            _command = Parse();
         }
 
         public Command GetContent()
@@ -25,7 +25,7 @@ namespace vcs
             return _command;
         }
 
-        private void Parse()
+        private Command Parse()
         {
             string commandName = _input[0];
             List<string> properties = new List<string>();
@@ -35,7 +35,7 @@ namespace vcs
                 properties.Add(_input[i]);
             }
 
-            _command = new Command(commandName, properties, _callDirectory);
+            return new Command(commandName, properties, _callDirectory);
         }
     }
 }

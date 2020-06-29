@@ -14,6 +14,11 @@ namespace vcs
             _path = path;
         }
 
+        public Path(Path path, string append)
+        {
+            _path = path.GetContent() + append;
+        }
+
         public string GetContent()
         {
             return _path;
