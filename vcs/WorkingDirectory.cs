@@ -25,7 +25,7 @@ namespace vcs
         {
             List<Path> filesPaths = new List<Path>();
 
-            string currentDirectory = path.GetContent();
+            string currentDirectory = path.ToString();
             string[] files = Directory.GetFiles(currentDirectory);
  
             foreach (string filePath in files)
@@ -35,10 +35,10 @@ namespace vcs
 
             string[] directories = Directory.GetDirectories(currentDirectory);
 
-            Path repositoryPath = _callDirectory.FindRepositoryRoot();
+            Path repositoryPath = _callDirectory.FindRepositoryFolder();
             foreach (string directory in directories)
             {
-                if (directory == repositoryPath.GetContent())
+                if (directory == repositoryPath.ToString())
                 { 
                     continue; // skip .repo directory
                 }

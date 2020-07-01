@@ -8,6 +8,7 @@
 *.vscode
 # Build results
 
+*.repo/
 
 [Dd]ebug/
 [Rr]elease/

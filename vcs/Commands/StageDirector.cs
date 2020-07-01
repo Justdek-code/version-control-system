@@ -25,19 +25,39 @@ namespace vcs.Commands
                 throw new NotImplementedException("The call directory is not under version control system");
             }
 
-            if (_command.Properties[0] == "-a")
+            if (_command.Properties[0] == "--all")
             {
-                Path rootDirectory = callDirectory.FindRepositoryRoot();
 
-                IEnumerable<string> files = Directory.EnumerateFiles(rootDirectory.GetContent());
-
-                foreach (string file in files)
+            }
+            else
+            {
+                foreach(string file in _command.Properties)
                 {
+                    string filePath = callDirectory.GetPath().ToString() + "\\" + file;
 
+                    if (!File.Exists(filePath))
+                    {
+                        Console.WriteLine($"error: {filePath} file path doesn't exist");
+                        return;
+                    }
+
+                    StageStatus stageStatus = new StageStatus(callDirectory);
+                    Stage stage = stageStatus.GetCurrentStage();
+
+                    Blob fileBlob = new Blob(new Path(filePath));
+
+                    if (fileBlob.ContainsIn(stage.Untracked))
+                    {
+                        Stage newStage = stage.AddToTracked(fileBlob);
+                        newStage.WriteToIndex(callDirectory);
+                        fileBlob.CreateBlobObject(callDirectory);
+                    }
+                    else
+                    {
+                        Console.WriteLine($"file \"{filePath}\" is already tracked");
+                    }
                 }
             }
         }
-
-        
     }
 }

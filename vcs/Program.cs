@@ -10,21 +10,13 @@ namespace vcs
         static void Main(string[] args)
         {
 
-            string[] command = { "init" };
+            string[] command = { "add", "Hash.cs" };
             
             CallDirectory callDirectory = new CallDirectory();
-            CommandParser commandParser = new CommandParser(callDirectory, command);
+            CommandParser commandParser = new CommandParser(callDirectory, args);
             Executor commandExecutor = new Executor(commandParser);
             commandExecutor.Run();
             
-            IndexParser stage = new IndexParser(callDirectory);
-            stage.GetContent();
-
-            WorkingDirectory workingDirectory = new WorkingDirectory(callDirectory);
-            workingDirectory.GetContent();
-
-            StageStatus status = new StageStatus(callDirectory);
-            status.GetCurrentStage().PrintInformation();
         }
     }
 }

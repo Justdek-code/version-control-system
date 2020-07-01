@@ -24,13 +24,17 @@ namespace vcs
         private List<Blob> ReadIndex()
         {
             List<Blob> blobsInfo = new List<Blob>();
-            Path repositoryPath = _callDirectory.FindRepositoryRoot();
-            string indexPath = repositoryPath.GetContent() + "\\index";
+            Path repositoryPath = _callDirectory.FindRepositoryFolder();
+            string indexPath = repositoryPath.ToString() + "\\index";
 
             string[] lines = File.ReadAllLines(indexPath);
-
             foreach (string line in lines)
             {
+                if (line == String.Empty)
+                {
+                    break;
+                }
+                
                 blobsInfo.Add(ParseBlobInfo(line));
             }
 

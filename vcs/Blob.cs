@@ -18,8 +18,18 @@ namespace vcs
 
         public Blob (Path filePath)
         {
-            FilePath = filePath.GetContent();
+            FilePath = filePath.ToString();
             Hash = GetFileHash(filePath);
+        }
+
+        public void CreateBlobObject(CallDirectory callDirectory)
+        {
+            string objectPath = callDirectory.FindRepositoryFolder().ToString() + $"\\objects\\{Hash}"; 
+            using (StreamWriter streamWriter = new StreamWriter(objectPath))
+            {
+                StreamReader contentReader = File.OpenText(FilePath);
+                streamWriter.Write(contentReader.ReadToEnd());
+            }
         }
 
         public bool IsEqual(Blob compare)
@@ -47,7 +57,7 @@ namespace vcs
 
         private string GetFileHash(Path filePath)
         {
-            using (StreamReader file = File.OpenText(filePath.GetContent()))
+            using (StreamReader file = File.OpenText(filePath.ToString()))
             {
                 string content = file.ReadToEnd();
                 Hash hash = new Hash(content);

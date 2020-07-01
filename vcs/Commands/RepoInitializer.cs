@@ -14,17 +14,17 @@ namespace vcs.Commands
             _command = command;
         }
 
-        public void Execute()
+        public void InitializeRepo()
         {
             CallDirectory callDirectory = _command.CallDirectory;
 
             if (!callDirectory.IsUnderVersionControl())
             { 
                 Path directoryPath = callDirectory.GetPath();
-                string path = directoryPath.GetContent() + "\\.repo";
+                string path = directoryPath.ToString() + "\\.repo";
 
                 InitializeRepository(path);
-                Console.WriteLine($"The repository is successfully created in {directoryPath.GetContent()}");
+                Console.WriteLine($"The repository is successfully created in {directoryPath.ToString()}");
             }
             else
             {

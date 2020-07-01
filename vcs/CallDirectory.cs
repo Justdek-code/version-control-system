@@ -14,7 +14,7 @@ namespace vcs
         {
             _path = new Path(Directory.GetCurrentDirectory());
             
-            Console.WriteLine(_path.GetContent());
+            Console.WriteLine(_path.ToString());
         }
 
         public Path GetPath()
@@ -24,9 +24,9 @@ namespace vcs
 
         public bool IsUnderVersionControl()
         {
-            Path repositryPath = FindRepositoryRoot();
+            Path repositryPath = FindRepositoryFolder();
 
-            if (repositryPath.GetContent() == String.Empty)
+            if (repositryPath.ToString() == String.Empty)
             {
                 return false;
             }
@@ -34,13 +34,13 @@ namespace vcs
             return true;
         }
 
-        public Path FindRepositoryRoot()
+        public Path FindRepositoryFolder()
         {
-            Path tempPath = new Path(_path.GetContent());
+            Path tempPath = new Path(_path.ToString());
 
             while (!tempPath.IsEmpty())
             {
-                string searchingDirectory = tempPath.GetContent() + "\\.repo";
+                string searchingDirectory = tempPath.ToString() + "\\.repo";
 
                 if (Directory.Exists(searchingDirectory))
                 {

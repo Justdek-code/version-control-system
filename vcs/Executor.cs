@@ -17,7 +17,9 @@ namespace vcs
 
         public void Run()
         {
-            if (_command.CommandName == "init") new RepoInitializer(_command).Execute(); 
+            if (_command.CommandName == "init") new RepoInitializer(_command).InitializeRepo(); 
+            if (_command.CommandName == "status") new StageStatus(_command.CallDirectory).GetCurrentStage().PrintInformation();
+            if (_command.CommandName == "add") new StageDirector(_command).Execute();
         }
     }
 }

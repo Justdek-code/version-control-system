@@ -37,20 +37,6 @@ namespace vcs
                 {
                     untracked.Add(workingFile);
                 }
-                // foreach (Blob trackedFile in stagedFiles)
-                // {
-                //     if (trackedFile.IsEqual(workingFile)) // compare hashes and paths
-                //     {
-                //         tracked.Add(workingFile);
-                //         continue;
-                //     }
-                //     //TODO compare with nearest commit
-                //     else
-                //     {
-                //         untracked.Add(workingFile);
-                //         continue;
-                //     }
-                // }
             }
 
             return new Stage(tracked, untracked);

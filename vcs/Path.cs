@@ -16,10 +16,10 @@ namespace vcs
 
         public Path(Path path, string append)
         {
-            _path = path.GetContent() + append;
+            _path = path.ToString() + append;
         }
 
-        public string GetContent()
+        public override string ToString()
         {
             return _path;
         }
