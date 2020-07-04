@@ -3,15 +3,20 @@ using System.Collections.Generic;
 using System.IO;
 
 
-namespace vcs
+namespace vcs.Commands
 {
-    public class StageStatus
+    public class StatusCommand
     {
         private CallDirectory _callDirectory;
 
-        public StageStatus(CallDirectory callDirectory)
+        public StatusCommand(CallDirectory callDirectory)
         {
             _callDirectory = callDirectory;
+        }
+
+        public void Execute()
+        {
+            GetCurrentStage().PrintInformation(_callDirectory);
         }
 
         public Stage GetCurrentStage()

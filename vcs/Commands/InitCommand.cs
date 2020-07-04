@@ -5,16 +5,16 @@ using System.Collections.Generic;
 namespace vcs.Commands
 {
     // vcs init
-    public class RepoInitializer
+    public class InitCommand
     {
         private Command _command;
 
-        public RepoInitializer(Command command)
+        public InitCommand(Command command)
         {
             _command = command;
         }
 
-        public void InitializeRepo()
+        public void Execute()
         {
             CallDirectory callDirectory = _command.CallDirectory;
 

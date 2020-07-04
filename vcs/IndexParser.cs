@@ -24,7 +24,7 @@ namespace vcs
         private List<Blob> ReadIndex()
         {
             List<Blob> blobsInfo = new List<Blob>();
-            Path repositoryPath = _callDirectory.FindRepositoryFolder();
+            Path repositoryPath = _callDirectory.GetRepositoryFolder();
             string indexPath = repositoryPath.ToString() + "\\index";
 
             string[] lines = File.ReadAllLines(indexPath);
@@ -48,7 +48,7 @@ namespace vcs
             string hash = content[0]; 
             string filePath = content[1];
 
-            return new Blob(hash, filePath);
+            return new Blob(hash, new Path(filePath));
         }
     }
 }

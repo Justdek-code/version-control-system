@@ -35,7 +35,7 @@ namespace vcs
 
             string[] directories = Directory.GetDirectories(currentDirectory);
 
-            Path repositoryPath = _callDirectory.FindRepositoryFolder();
+            Path repositoryPath = _callDirectory.GetRepositoryFolder();
             foreach (string directory in directories)
             {
                 if (directory == repositoryPath.ToString())

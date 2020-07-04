@@ -13,6 +13,11 @@ namespace vcs
             _directories = ParsePath(path);
         }
 
+        public PathParser(Path path)
+        {
+            _directories = ParsePath(path.ToString());
+        }
+
         public List<string> GetContent()
         {
             return _directories;
@@ -24,5 +29,6 @@ namespace vcs
 
             return directories;
         }
+
     } 
 }

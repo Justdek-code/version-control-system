@@ -24,7 +24,7 @@ namespace vcs
 
         public bool IsUnderVersionControl()
         {
-            Path repositryPath = FindRepositoryFolder();
+            Path repositryPath = GetRepositoryFolder();
 
             if (repositryPath.ToString() == String.Empty)
             {
@@ -34,7 +34,7 @@ namespace vcs
             return true;
         }
 
-        public Path FindRepositoryFolder()
+        public Path GetRepositoryFolder()
         {
             Path tempPath = new Path(_path.ToString());
 

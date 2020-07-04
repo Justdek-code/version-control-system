@@ -58,24 +58,28 @@ namespace vcs
             return new Stage(tracked, untracked);
         }
 
-        public void PrintInformation()
+        public void PrintInformation(CallDirectory callDirectory)
         {
             Console.WriteLine("tracked: ");
             foreach (Blob file in Tracked)
             {
-                Console.WriteLine($"\t {file.FilePath}");
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine($"\t {file.GetShortPath(callDirectory)}");
+                Console.ForegroundColor = ConsoleColor.Gray;
             }
 
             Console.WriteLine("\nuntracked: ");
             foreach (Blob file in Untracked)
             {
-                Console.WriteLine($"\t {file.FilePath}");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine($"\t {file.GetShortPath(callDirectory)}");
+                Console.ForegroundColor = ConsoleColor.Gray;
             }
         }
 
         public void WriteToIndex(CallDirectory callDirectory)
         {
-            string indexPath = callDirectory.FindRepositoryFolder().ToString() + "\\index";
+            string indexPath = callDirectory.GetRepositoryFolder().ToString() + "\\index";
 
             using (StreamWriter streamWriter = new StreamWriter(indexPath)) 
             {
