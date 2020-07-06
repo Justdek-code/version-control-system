@@ -6,14 +6,14 @@ namespace vcs.CustomFileSystem
 {
     public class FileSystem
     {
-        public Directory RootDirectory;
+        private Directory _rootDirectory;
         private CallDirectory _callDirectory;
 
         public FileSystem(List<Path> paths, CallDirectory callDirectory)
         {
             _callDirectory = callDirectory;
             FileSystemParser parser = new FileSystemParser(paths);
-            RootDirectory = parser.GetContent();
+            _rootDirectory = parser.GetContent();
         }
 
         public FileSystem(List<Blob> blobs, CallDirectory callDirectory)
@@ -22,10 +22,15 @@ namespace vcs.CustomFileSystem
 
             foreach (Blob blob in blobs)
             {
-                paths.Add(blob.FilePath);
+                paths.Add(blob.FilePath.GetShortPath(callDirectory));
             }
             FileSystemParser parser = new FileSystemParser(paths);
-            RootDirectory = parser.GetContent();
+            _rootDirectory = parser.GetContent();
+        }
+
+        public Directory GetContent()
+        {
+            return _rootDirectory;
         }
     }
 }

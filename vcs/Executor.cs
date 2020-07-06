@@ -17,9 +17,11 @@ namespace vcs
 
         public void Run()
         {
-            if (_command.CommandName == "init") new InitCommand(_command).Execute(); 
-            if (_command.CommandName == "status") new StatusCommand(_command.CallDirectory).Execute();
-            if (_command.CommandName == "add") new AddCommand(_command).Execute();
+            string commandName = _command.CommandName;
+            if (commandName == "init") new InitCommand(_command).Execute(); 
+            if (commandName == "status") new StatusCommand(_command.CallDirectory).Execute();
+            if (commandName == "add") new AddCommand(_command).Execute();
+            if (commandName == "commit") new CommitCommand(_command).Execute();
         }
     }
 }

@@ -24,14 +24,39 @@ namespace vcs
             return _path;
         }
 
-        public string GetShortPath(CallDirectory callDirectory)
+        public Path GetShortPath(CallDirectory callDirectory)
         {
-            string repoPath = callDirectory.GetRepositoryFolder().ToString();
-            string rootFolder = repoPath.Replace("\\.repo", "");
+            Path unnecessaryPath = callDirectory.GetRepositoryFolder();
+            unnecessaryPath = unnecessaryPath.GetUpperDirectory(2); // pass .repo and initialized directory
 
-            string shortPath = _path.Replace(rootFolder, "");
-            return shortPath;
+            string shortPath = _path.Replace(unnecessaryPath.ToString() + "\\", "");
+            return new Path(shortPath);
         }  
+
+        public Path ConcatPath(Path concatPath)
+        {
+            string newPath = _path + "\\" + concatPath.ToString();
+            return new Path(newPath);
+        }
+
+        public Path ConcatPath(string concatPath)
+        {
+            string newPath = _path + "\\" + concatPath;
+            return new Path(newPath);
+        }
+
+        public string GetFileName()
+        {
+            if (!IsDirectory())
+            {
+                PathParser pathParser = new PathParser(_path);
+                List<string> directories = pathParser.GetContent();
+
+                return directories[directories.Count - 1];
+            }
+
+            return String.Empty;
+        }
 
         public bool IsEqual(Path compare)
         {
@@ -83,26 +108,19 @@ namespace vcs
             return new Path(path);
         }
 
-        public Path GetUpperDirectory()
+        public Path GetUpperDirectory(int n = 1)
         {
             string newPath = String.Empty;
 
             PathParser pathParser = new PathParser(_path);
             List<string> directories = pathParser.GetContent();
 
-            directories.RemoveAt(directories.Count - 1); // remove bottom directory
-
-            if (directories.Count > 0)
+            for (int i = 1; i <= n; i++)
             {
-                newPath += directories[0];
-
-                for (int i = 1; i < directories.Count; i++)
-                {
-                    newPath += "\\" + directories[i];
-                }
+               directories.RemoveAt(directories.Count - 1);
             }
 
-            return new Path(newPath);
+            return RestorePath(directories);
         }
 
         public Path DeleteBottomDirectory()

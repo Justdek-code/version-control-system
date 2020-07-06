@@ -52,5 +52,12 @@ namespace vcs
 
             return new Path(String.Empty);
         }
+
+        public Path GetCommonDirectory()
+        {
+            Path commonDirectory = GetRepositoryFolder().GetUpperDirectory(1);
+            
+            return commonDirectory;
+        }
     }
 }

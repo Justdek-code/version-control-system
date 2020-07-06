@@ -56,6 +56,27 @@ namespace vcs.CustomFileSystem
             throw new NotImplementedException($"error: custom file system there is no such subdirectory: {name} of {DirectoryName}");
         }
 
+        public Tree ConvertIntoTree(CallDirectory callDirectory, Path currentPath)
+        {
+            List<Tree> subtrees = new List<Tree>();
+            List<Blob> blobs = new List<Blob>();
+
+            foreach (Directory subdirectory in Subdirectories)
+            {
+                Path nextPath = currentPath.ConcatPath(subdirectory.DirectoryName);
+                subtrees.Add(subdirectory.ConvertIntoTree(callDirectory, nextPath));
+            }
+
+            foreach (File file in Files)
+            {
+                Path filePath = currentPath.ConcatPath(file.FileName);
+                Blob blob = new Blob(filePath);
+                blobs.Add(blob);
+            }
+
+            return new Tree(blobs, subtrees, DirectoryName);
+        }
+
         private bool IsEqualName(Directory compare)
         {
             if (this.DirectoryName == compare.DirectoryName)

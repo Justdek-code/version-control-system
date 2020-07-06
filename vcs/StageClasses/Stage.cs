@@ -64,7 +64,7 @@ namespace vcs
             foreach (Blob file in Tracked)
             {
                 Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine($"\t {file.GetShortPath(callDirectory)}");
+                Console.WriteLine($"\t {file.FilePath}");
                 Console.ForegroundColor = ConsoleColor.Gray;
             }
 
@@ -72,7 +72,7 @@ namespace vcs
             foreach (Blob file in Untracked)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine($"\t {file.GetShortPath(callDirectory)}");
+                Console.WriteLine($"\t {file.FilePath}");
                 Console.ForegroundColor = ConsoleColor.Gray;
             }
         }

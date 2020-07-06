@@ -12,7 +12,11 @@ namespace vcs.CustomFileSystem
         public FileSystemParser(List<Path> paths)
         {
             _paths = paths;
-            _directoryTree = ParseDirectories();
+            
+            if (_paths.Count > 0)
+            {
+                _directoryTree = ParseDirectories();
+            }
         }
 
         public Directory GetContent()

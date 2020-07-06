@@ -55,15 +55,6 @@ namespace vcs
             return false;
         }
 
-        public string GetShortPath(CallDirectory callDirectory)
-        {
-            string repoPath = callDirectory.GetRepositoryFolder().ToString();
-            string rootFolder = repoPath.Replace("\\.repo", "");
-
-            string shortPath = FilePath.ToString().Replace(rootFolder, "");
-            return shortPath;
-        }  
-
         private string GetFileHash(Path filePath)
         {
             using (StreamReader file = File.OpenText(filePath.ToString()))

@@ -27,7 +27,7 @@ namespace vcs.Commands
 
             if (_command.Properties[0] == "--all")
             {
-                
+
             }
             else
             {

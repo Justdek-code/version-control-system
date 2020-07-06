@@ -42,6 +42,8 @@ namespace vcs.Commands
             Directory.CreateDirectory(path + "\\commits");
 
             using (FileStream fileStream = File.Create(path + "\\index")) {}
+            using (FileStream fileStream = File.Create(path + "\\HEAD")) {}
+            using (FileStream fileStream = File.Create(path + "\\references\\master")) {}
         }
     }
 }
